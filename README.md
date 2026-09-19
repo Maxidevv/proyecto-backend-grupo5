@@ -14,7 +14,7 @@ API construida con Node.js, Express y MongoDB para la gestión de Eventos y Entr
    ```bash
    npm install
    ```
-3. Crear un archivo `.env` en la raíz del proyecto basándose en `.env.ejemplo`:
+3. Crear un archivo `.env` en la raíz del proyecto basándose en `.env`:
    ```env
    PORT=3000
    MONGODB_URI=mongodb://localhost:27017/eventos_db
