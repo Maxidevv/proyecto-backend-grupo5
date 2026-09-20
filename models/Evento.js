@@ -7,8 +7,7 @@ const entradaSchema = new mongoose.Schema({
         default: uuidv4
     },
     apellido: {
-        type: String,
-        required: true
+        type: String
     },
     dni: {
         type: String,
@@ -42,8 +41,7 @@ const entradaSchema = new mongoose.Schema({
 const eventoSchema = new mongoose.Schema({
     clave: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     titulo: {
         type: String,
