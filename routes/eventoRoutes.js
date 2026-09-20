@@ -11,7 +11,7 @@ router.delete('/:clave', eventoController.deleteEvento);
 
 // Rutas para Entradas incrustadas en Eventos
 router.get('/:clave/entradas', eventoController.getEntradasByEvento);
-router.get('/:clave/entradas/:entradaId', eventoController.getEntradaById);
+router.get('/:clave/entradas/:idEntrada', eventoController.getEntradaById);
 router.post('/:clave/entradas', eventoController.addEntrada);
 router.put('/:clave/entradas/:entradaId', eventoController.updateEntrada);
 router.delete('/:clave/entradas/:entradaId', eventoController.deleteEntrada);

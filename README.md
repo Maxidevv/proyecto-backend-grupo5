@@ -52,3 +52,32 @@ El servidor escuchará en `http://localhost:3000`.
 - `GET /api/eventos/:clave/entradas/:entradaId` - Detalle puntual de una entrada.
 - `PUT /api/eventos/:clave/entradas/:entradaId` - Actualiza una entrada (ej. cambio de estado a "pagado").
 - `DELETE /api/eventos/:clave/entradas/:entradaId` - Cancela o elimina una entrada.
+
+## Errores deliberados (ejercicio de revisión)
+
+Este proyecto contiene **10 errores deliberados** (bugs) inyectados a propósito con fines académicos
+(práctica de revisión de código). Los errores **no están documentados en el código fuente**.
+
+El listado completo de errores y sus efectos se encuentra cifrado en el archivo
+[`errores-inyectados.txt`](./errores-inyectados.txt) de la raíz del proyecto.
+
+### Cifrado aplicado
+
+- Algoritmo: **Cifrado César**
+- Desplazamiento: **7**
+
+El archivo NO contiene texto plano: es un `.txt` con el contenido desplazado. Para leerlo se debe
+aplicar un desplazamiento inverso de **-7** usando cualquier herramienta de cifrado/encriptación
+(p. ej. `openssl`, scripts con `tr`, sitios de cifrado César, etc.).
+
+Ejemplo con `tr` (disponible en Linux/macOS):
+
+```bash
+cat errores-inyectados.txt | tr 'a-zA-Z' 't-za-sT-ZA-S'
+```
+
+Ejemplo con Python (herramienta de encriptación/decodificación):
+
+```bash
+python3 -c "print(''.join(chr((ord(c)-97-7)%26+97) if c.islower() else (chr((ord(c)-65-7)%26+65) if c.isupper() else c) for c in open('errores-inyectados.txt').read()))"
+```

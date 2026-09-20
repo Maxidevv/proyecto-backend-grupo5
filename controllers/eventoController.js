@@ -5,10 +5,10 @@ const { v4: uuidv4 } = require('uuid');
 // CRUD EVENTOS
 // ==========================================
 
-// Obtener todos los eventos (excluyendo detalles de entradas para ser ligero)
+// Obtener todos los eventos
 exports.getEventos = async (req, res) => {
     try {
-        const eventos = await Evento.find().select('-entradas');
+        const eventos = await Evento.find();
         res.json(eventos);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener eventos', error: error.message });
@@ -18,7 +18,7 @@ exports.getEventos = async (req, res) => {
 // Obtener un evento por clave (incluyendo entradas)
 exports.getEventoByClave = async (req, res) => {
     try {
-        const evento = await Evento.findOne({ clave: req.params.clave });
+        const evento = await Evento.findById(req.params.clave);
         if (!evento) {
             return res.status(404).json({ message: 'Evento no encontrado' });
         }
@@ -45,9 +45,7 @@ exports.createEvento = async (req, res) => {
 // Actualizar un evento
 exports.updateEvento = async (req, res) => {
     try {
-        // Evitamos sobreescribir las entradas accidentalmente en un PUT general
         const datosActualizar = { ...req.body };
-        delete datosActualizar.entradas;
 
         const evento = await Evento.findOneAndUpdate(
             { clave: req.params.clave },
@@ -67,7 +65,7 @@ exports.updateEvento = async (req, res) => {
 // Eliminar un evento
 exports.deleteEvento = async (req, res) => {
     try {
-        const evento = await Evento.findOneAndDelete({ clave: req.params.clave });
+        const evento = Evento.findOneAndDelete({ clave: req.params.clave });
         if (!evento) {
             return res.status(404).json({ message: 'Evento no encontrado' });
         }
@@ -100,9 +98,7 @@ exports.addEntrada = async (req, res) => {
         if (!evento) return res.status(404).json({ message: 'Evento no encontrado' });
 
         const nuevaEntrada = req.body;
-        if (!nuevaEntrada.id) {
-            nuevaEntrada.id = uuidv4();
-        }
+        nuevaEntrada.id = uuidv4();
 
         evento.entradas.push(nuevaEntrada);
         await evento.save();
